@@ -1,0 +1,2 @@
+# Pokedux
+Reactjs &amp; Redux
