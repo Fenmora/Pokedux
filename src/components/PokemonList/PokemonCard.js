@@ -11,7 +11,7 @@ import "./style.css";
  * @param myparam
  * */
 
-export const PokemonCard = () => {
+export const PokemonCard = ({ pokemon }) => {
   return (
     <Grid.Column mobile={16} tablet={8} computer={4}>
       <div className="PokemonCard">
@@ -21,7 +21,7 @@ export const PokemonCard = () => {
           src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
           alt="Pokemon Front"
         />
-        <p className="Pokemon-Title">Ditto</p>
+        <p className="Pokemon-Title">{pokemon.name}</p>
         <Label color={MAIN_COLOR}>Normal</Label>
       </div>
     </Grid.Column>
