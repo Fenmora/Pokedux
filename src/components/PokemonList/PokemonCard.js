@@ -18,7 +18,6 @@ export const PokemonCard = ({ pokemon }) => {
         <Icon name="favorite" color={FAV_COLOR}></Icon>
         <Image
           centered
-          // src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
           src={pokemon.sprites.front_default}
           alt="Pokemon Front"
         />
