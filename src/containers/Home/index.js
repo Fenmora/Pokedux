@@ -3,23 +3,40 @@ import Searcher from "../../components/Searcher";
 import PokemonList from "../../components/PokemonList";
 import "./styles.css";
 import { getPokemons } from "../../api/getPokemons";
-import { setPokemon } from "../../actions";
+import { setPokemon, setError } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 function Home() {
   const dispatch = useDispatch();
-  const list = useSelector((state) => state.list);
-
+  const pokemons = useSelector((state) => state.list);
+  // useEffect(() => {
+  //   getPokemons().then((res) => {
+  //     dispatch(setPokemon(res.results));
+  //   });
+  // }, []);
   useEffect(() => {
-    getPokemons().then((res) => {
-      dispatch(setPokemon(res.results));
-    });
+    getPokemons()
+      .then((res) => {
+        const pokemonList = res.results;
+        return Promise.all(
+          pokemonList.map((pokemon) => axios.get(pokemon.url))
+        );
+      })
+      .then((pokemonResponses) => {
+        const pokemonsWithDetails = pokemonResponses.map(
+          (response) => response.data
+        );
+        dispatch(setPokemon(pokemonsWithDetails));
+      })
+      .catch((error) => {
+        dispatch(setError({ message: "Ocurrió un error", error }));
+      });
   }, []);
-
   return (
     <div className="Home">
       <Searcher />
-      <PokemonList pokemons={list} />
+      <PokemonList pokemons={pokemons} />
     </div>
   );
 }

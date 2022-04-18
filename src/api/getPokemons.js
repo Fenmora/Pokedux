@@ -1,5 +1,5 @@
-import axiosInstance from "./config";
-// import axiosInstance from "../services/axios";
+// import axiosInstance from "./config";
+import axiosInstance from "../services/axios";
 
 export const getPokemons = (limit = 151) =>
   axiosInstance

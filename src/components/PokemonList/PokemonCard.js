@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Icon, Image, Label } from "semantic-ui-react";
+import { Divider, Grid, Icon, Image, Label } from "semantic-ui-react";
 import { MAIN_COLOR, FAV_COLOR } from "../../utils/constants";
 import "./style.css";
 
@@ -18,11 +18,17 @@ export const PokemonCard = ({ pokemon }) => {
         <Icon name="favorite" color={FAV_COLOR}></Icon>
         <Image
           centered
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
+          // src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
+          src={pokemon.sprites.front_default}
           alt="Pokemon Front"
         />
-        <p className="Pokemon-Title">{pokemon.name}</p>
-        <Label color={MAIN_COLOR}>Normal</Label>
+        <h2 className="Pokemon-Title">{pokemon.name}</h2>
+        <Divider />
+        {pokemon.types.map((type) => (
+          <Label color={MAIN_COLOR} key={`${pokemon.id}-${type.type.name}`}>
+            {type.type.name}
+          </Label>
+        ))}
       </div>
     </Grid.Column>
   );
