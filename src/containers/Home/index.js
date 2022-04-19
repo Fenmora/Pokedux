@@ -1,25 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Searcher from "../../components/Searcher";
 import PokemonList from "../../components/PokemonList";
-import "./styles.css";
 import { getPokemons } from "../../api/getPokemons";
-import { setPokemon } from "../../actions";
-import { useDispatch, useSelector } from "react-redux";
+import { setError, fetchPokemonDetails } from "../../actions";
+import "./styles.css";
 
 function Home() {
+  const pokemons = useSelector((state) => state.list);
   const dispatch = useDispatch();
-  const list = useSelector((state) => state.list);
 
   useEffect(() => {
-    getPokemons().then((res) => {
-      dispatch(setPokemon(res.results));
-    });
+    dispatch(fetchPokemonDetails());
+    // getPokemons()
+    //   .then((res) => {
+    //     dispatch(fetchPokemonDetails(res.results));
+    //   })
+    //   .catch((error) => {
+    //     dispatch(setError({ message: 'Ocurrió un error', error }));
+    //   });
   }, []);
 
   return (
     <div className="Home">
       <Searcher />
-      <PokemonList pokemons={list} />
+      <PokemonList pokemons={pokemons} />
     </div>
   );
 }

@@ -1,30 +1,25 @@
-import React from "react";
-import { Grid, Icon, Image, Label } from "semantic-ui-react";
-import { MAIN_COLOR, FAV_COLOR } from "../../utils/constants";
-import "./style.css";
+import React from 'react';
+import { Image, Label, Divider, Grid, Icon } from 'semantic-ui-react';
+import { FAV_COLOR, MAIN_COLOR } from '../../utils/constants';
+import './styles.css';
 
-/**
- * *Important information is highlight
- * ! Do not use
- * ? Should do this
- * Todo: refactor this method
- * @param myparam
- * */
+const PokemonCard = ({ pokemon }) => {
+  if (!pokemon) return null;
 
-export const PokemonCard = ({ pokemon }) => {
   return (
     <Grid.Column mobile={16} tablet={8} computer={4}>
-      <div className="PokemonCard">
-        <Icon name="favorite" color={FAV_COLOR}></Icon>
+      <div className='PokemonCard'>
+        <Icon name='favorite' color={FAV_COLOR} />
         <Image
           centered
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
-          alt="Pokemon Front"
+          src={pokemon.sprites.front_default}
         />
-        <p className="Pokemon-Title">{pokemon.name}</p>
-        <Label color={MAIN_COLOR}>Normal</Label>
+        <h2 className='PokemonCard-title'>{pokemon.name}</h2>
+        <Divider />
+        <Label color={MAIN_COLOR}>normal</Label>
       </div>
     </Grid.Column>
   );
 };
+
 export default PokemonCard;
