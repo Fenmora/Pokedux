@@ -1,6 +1,8 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Divider, Grid, Icon, Image, Label } from "semantic-ui-react";
-import { MAIN_COLOR, FAV_COLOR } from "../../utils/constants";
+import { setFavorite } from "../../actions";
+import { MAIN_COLOR, FAV_COLOR, DEFAULT_COLOR } from "../../utils/constants";
 import "./style.css";
 
 /**
@@ -12,10 +14,25 @@ import "./style.css";
  * */
 
 export const PokemonCard = ({ pokemon }) => {
+  const dispatch = useDispatch();
+
+  const handleFavorite = () => {
+    dispatch(setFavorite({ pokemonId: pokemon.id }));
+    // dispatch(
+    //   setFavorite({ pokemonId: pokemon.id, favorite: pokemon.favorite })
+    // );
+  };
+  // console.log(pokemon);
+  const color = pokemon.favorite ? FAV_COLOR : DEFAULT_COLOR;
+  if (!pokemon) return null;
+
   return (
     <Grid.Column mobile={16} tablet={8} computer={4}>
       <div className="PokemonCard">
-        <Icon name="favorite" color={FAV_COLOR}></Icon>
+        <button className="PokemonCard-favorite" onClick={handleFavorite}>
+          <Icon name="favorite" color={color}></Icon>
+        </button>
+
         <Image
           centered
           src={pokemon.sprites.front_default}

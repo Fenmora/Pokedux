@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import Searcher from "../../components/Searcher";
 import PokemonList from "../../components/PokemonList";
-
-import { getPokemonWithDetails } from "../../actions";
+import Loader from "../../components/Loader";
+import { fetchPokemonsWithDetails } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import "./styles.css";
 
 function Home() {
   const dispatch = useDispatch();
   const pokemons = useSelector((state) => state.list);
-
+  const loading = useSelector((state) => state.loading);
   useEffect(() => {
-    dispatch(getPokemonWithDetails());
+    dispatch(fetchPokemonsWithDetails());
     // getPokemons()
     //   .then((res) => {
     //     const pokemonList = res.results;
@@ -32,6 +32,8 @@ function Home() {
   return (
     <div className="Home">
       <Searcher />
+      {loading && <Loader />}
+
       <PokemonList pokemons={pokemons} />
     </div>
   );
