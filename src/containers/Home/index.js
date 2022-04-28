@@ -5,29 +5,15 @@ import Loader from "../../components/Loader";
 import { fetchPokemonsWithDetails } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import "./styles.css";
+import { fromJS, toJS } from "immutable";
 
 function Home() {
   const dispatch = useDispatch();
-  const pokemons = useSelector((state) => state.list);
+  // const pokemons = useSelector((state) => state.list);
+  const pokemons = useSelector((state) => state.get("list")).toJS();
   const loading = useSelector((state) => state.loading);
   useEffect(() => {
     dispatch(fetchPokemonsWithDetails());
-    // getPokemons()
-    //   .then((res) => {
-    //     const pokemonList = res.results;
-    //     return Promise.all(
-    //       pokemonList.map((pokemon) => axios.get(pokemon.url))
-    //     );
-    //   })
-    //   .then((pokemonResponses) => {
-    //     const pokemonsWithDetails = pokemonResponses.map(
-    //       (response) => response.data
-    //     );
-    //     dispatch(setPokemon(pokemonsWithDetails));
-    //   })
-    //   .catch((error) => {
-    //     dispatch(setError({ message: "Ocurrió un error", error }));
-    //   });
   }, []);
   return (
     <div className="Home">
