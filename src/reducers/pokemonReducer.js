@@ -1,10 +1,10 @@
 import { fromJS } from "immutable";
-import { SET_FAVORITE, SET_POKEMON, TOGGLE_LOADER } from "../actions/type";
+import { SET_FAVORITE, SET_POKEMON } from "../actions/type";
 
 const initialState = fromJS({
   list: [],
-  loading: false,
-  error: "",
+  // loading: false,
+  // error: "",
 });
 
 const pokemonReducer = (state = initialState, action) => {
@@ -26,10 +26,7 @@ const pokemonReducer = (state = initialState, action) => {
         !isFavorite,
       ]);
 
-    //   return { ...state, list: newPokemonList };
-
     default:
-      // return { ...state };
       return state;
   }
 };

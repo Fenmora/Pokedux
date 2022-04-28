@@ -5,12 +5,13 @@ import Loader from "../../components/Loader";
 import { fetchPokemonsWithDetails } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import "./styles.css";
-import { fromJS, toJS } from "immutable";
+// import { getIn, toJS } from "immutable";
 
 function Home() {
   const dispatch = useDispatch();
-  // const pokemons = useSelector((state) => state.list);
-  const pokemons = useSelector((state) => state.get("list")).toJS();
+  const pokemons = useSelector((state) =>
+    state.getIn(["pokemon", "list"])
+  ).toJS();
   const loading = useSelector((state) => state.loading);
   useEffect(() => {
     dispatch(fetchPokemonsWithDetails());
